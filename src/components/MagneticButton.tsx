@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { motion, useSpring } from 'framer-motion';
 
 interface MagneticProps {
@@ -8,7 +8,6 @@ interface MagneticProps {
 
 const MagneticButton: React.FC<MagneticProps> = ({ children, className = '' }) => {
     const ref = useRef<HTMLDivElement>(null);
-    const [isHovered, setIsHovered] = useState(false);
 
     // Physics spring configuration for the magnetic pull
     const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
@@ -30,7 +29,6 @@ const MagneticButton: React.FC<MagneticProps> = ({ children, className = '' }) =
     };
 
     const handleMouseLeave = () => {
-        setIsHovered(false);
         // Snap back to original position
         x.set(0);
         y.set(0);
@@ -40,7 +38,6 @@ const MagneticButton: React.FC<MagneticProps> = ({ children, className = '' }) =
         <motion.div
             ref={ref}
             onMouseMove={handleMouseMove}
-            onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={handleMouseLeave}
             style={{ x, y }}
             className={`relative inline-flex items-center justify-center cursor-none w-fit ${className}`}
